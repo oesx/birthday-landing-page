@@ -5,20 +5,20 @@ import { GridMotion } from "./grid-motion";
 
 // 静态图片资源
 const staticAlbumCovers = [
-  "/albums/xinyaoye.jpg",
-  "/albums/SZA-LANA.jpg",
-  "/albums/shuqianjieshaonian.jpg",
-  "/albums/MBDTF.jpg",
-  "/albums/blonde.jpg",
-  "/albums/fantexi.jpg",
-  "/albums/woyongshenmebaniliuzhu.jpg",
+  "/albums/optimized/xinyaoye.jpg",
+  "/albums/optimized/SZA-LANA.jpg",
+  "/albums/optimized/shuqianjieshaonian.jpg",
+  "/albums/optimized/MBDTF.jpg",
+  "/albums/optimized/blonde.jpg",
+  "/albums/optimized/fantexi.jpg",
+  "/albums/optimized/woyongshenmebaniliuzhu.jpg",
 ];
 
 // 视频资源（延迟加载）
 const videoAlbumCovers = [
-  "/albums/SOS.mp4",
-  "/albums/NEVER ENOUGH.mp4",
-  "/albums/graduation.mp4",
+  "/albums/optimized/SOS.mp4",
+  "/albums/optimized/NEVER ENOUGH.mp4",
+  "/albums/optimized/graduation.mp4",
 ];
 
 export function AlbumBackground() {
