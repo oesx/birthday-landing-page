@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Noto_Serif_SC } from "next/font/google";
 import { ClerkProvider } from '@clerk/nextjs';
 import "./globals.css";
+import "@/styles/mobile.css";
 
 const cormorant = Cormorant_Garamond({
   weight: ["400"],
@@ -20,6 +21,13 @@ const notoSerif = Noto_Serif_SC({
   variable: "--font-noto",
   adjustFontFallback: false
 });
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
 
 export const metadata: Metadata = {
   title: "Happy Birthday!",
