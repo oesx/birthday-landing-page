@@ -149,7 +149,7 @@ export function GridMotion({
     }
   }, [handleMouseMove])
 
-  const renderCard = (content: string | ReactNode, rowIndex: number, i: number) => {
+  const renderCard = (content: string | ReactNode, rowIndex: number, i: number, key: string) => {
     const uniqueKey = `item-${rowIndex}-${i}`
     const isPortrait = typeof window !== 'undefined' && window.matchMedia('(orientation: portrait)').matches
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
@@ -188,7 +188,6 @@ export function GridMotion({
                   muted
                   playsInline
                   preload="metadata"
-                  loading="lazy"
                   width={isPortrait ? "60" : (isMobile ? "80" : "200")}
                   height={isPortrait ? "60" : (isMobile ? "80" : "200")}
                 >
@@ -229,8 +228,7 @@ export function GridMotion({
         <div 
           className={cn(
             "grid-motion-container grid grid-rows-[6] md:grid-rows-4 grid-cols-[100%] gap-[0.1rem]",
-            !isLoaded && "opacity-0 transition-opacity duration-500",
-            isLoaded && "opacity-100"
+            "opacity-100 transition-opacity duration-500"
           )}
         >
           {[...Array(typeof window !== 'undefined' ? 
@@ -259,8 +257,7 @@ export function GridMotion({
                 <div
                   ref={(el: HTMLDivElement | null) => { rowRefs.current[rowIndex] = el }}
                   className="grid-motion-track flex gap-2"
-                  style={{ willChange: 'transform' }}
-                >
+                  className="will-change-transform"               >
                   {sequence.map(({content, index}) => renderCard(content, rowIndex, index))}
                 </div>
               </div>
