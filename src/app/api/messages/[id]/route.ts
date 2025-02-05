@@ -10,7 +10,7 @@ const messagesFile = path.join(process.cwd(), 'data/messages.json');
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Record<string, string> }
 ) {
   try {
     // 检查用户是否已登录
