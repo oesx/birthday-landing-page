@@ -35,6 +35,13 @@
 
 ## Lessons
 
+## Next.js API Routes
+- 在 Next.js 15+ 中，API 路由可能需要添加 `export const dynamic = 'force-dynamic'` 来避免构建时的数据收集错误
+- API 路由的参数类型应该使用 `{ params: any }` 或更具体的类型定义
+- 使用 `@clerk/nextjs/server` 而不是 `@clerk/nextjs` 来导入 auth()
+
+
+
 1. React 组件中，如果在 useEffect 中使用了一个函数，应该把这个函数定义在 useEffect 外面，并把它加入到依赖数组中，否则可能会有闭包问题。
 2. 在处理大型 JSX 结构时，应该将重复的渲染逻辑提取到单独的函数中，这样可以提高代码的可读性和可维护性。
 3. 在使用 GSAP 动画时，要注意在组件卸载时清理所有的动画实例，避免内存泄漏。

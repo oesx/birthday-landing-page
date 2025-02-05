@@ -2,12 +2,16 @@ import { NextResponse } from 'next/server';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { auth } from '@clerk/nextjs/server';
-import { type NextRequest } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export const dynamic = 'force-dynamic';
 
 const messagesFile = path.join(process.cwd(), 'data/messages.json');
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function DELETE(request: NextRequest, { params }: any) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     // 检查用户是否已登录
     const { userId } = auth();
