@@ -7,10 +7,7 @@ import { type NextRequest } from 'next/server';
 const messagesFile = path.join(process.cwd(), 'data/messages.json');
 
 // DELETE /api/messages/[id]
-export async function DELETE(
-  request: NextRequest,
-  context: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest, { params }: any) {
   try {
     // 检查用户是否已登录
     const { userId } = auth();
@@ -23,7 +20,7 @@ export async function DELETE(
     const messages = JSON.parse(content);
 
     // 找到并删除指定消息
-    const messageId = Number.parseInt(context.params.id, 10);
+    const messageId = Number.parseInt(params.id, 10);
     const updatedMessages = messages.filter((msg: { id: number }) => msg.id !== messageId);
 
     // 写入更新后的消息
