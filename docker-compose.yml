@@ -24,11 +24,19 @@ services:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
       - ./ssl:/etc/nginx/ssl:ro  # SSL 证书
       - ./data/nginx:/var/log/nginx  # Nginx 日志
+      - nginx_cache:/var/cache/nginx  # Nginx 缓存
     depends_on:
       - app
     restart: unless-stopped
     networks:
       - app_network
+    # 优化 Nginx 性能
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+    sysctls:
+      - net.core.somaxconn=65536
 
 networks:
   app_network:
@@ -36,4 +44,6 @@ networks:
 
 volumes:
   data:
+    driver: local
+  nginx_cache:
     driver: local
