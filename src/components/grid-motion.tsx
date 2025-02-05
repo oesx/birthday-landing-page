@@ -193,12 +193,12 @@ export function GridMotion({
       >
         <div 
           className={cn(
-            "grid-motion-container grid grid-rows-4 grid-cols-[100%] gap-[0.1rem]",
+            "grid-motion-container grid grid-rows-[6] md:grid-rows-4 grid-cols-[100%] gap-[0.1rem]",
             !isLoaded && "opacity-0 transition-opacity duration-500",
             isLoaded && "opacity-100"
           )}
         >
-          {[...Array(4)].map((_, rowIndex) => {
+          {[...Array(window?.innerWidth && window.innerWidth < 768 ? 6 : 4)].map((_, rowIndex) => {
             // 减少卡片数量，优化性能
             const sequence = [...Array(20)].map((_, i) => ({
               content: combinedItems[Math.floor((rowIndex * 19937 + i * 104729) % combinedItems.length)],
