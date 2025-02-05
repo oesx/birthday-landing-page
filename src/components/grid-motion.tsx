@@ -67,48 +67,61 @@ export function GridMotion({
 
     // 自动滚动动画
     const autoScroll = () => {
-      // 移动端增加滚动时间，减少性能消耗
       const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-      const singleCardDuration = isMobile ? 12 : 8 // 移动端更慢的滚动速度
-      const cardsPerRow = 10
       
-      const currentRefs = [...rowRefs.current]
-      for (const row of currentRefs) {
-        if (!row) return
+      // 移动端使用更简单的动画
+      if (isMobile) {
+        const currentRefs = [...rowRefs.current]
+        for (const row of currentRefs) {
+          if (!row) continue
 
-        const isEvenRow = currentRefs.indexOf(row) % 2 === 0
-        const tl = gsap.timeline({ 
-          repeat: -1,
-          defaults: {
+          const isEvenRow = currentRefs.indexOf(row) % 2 === 0
+          const startX = isEvenRow ? 0 : -100
+          const endX = isEvenRow ? -100 : 0
+          
+          gsap.set(row, { xPercent: startX })
+          
+          gsap.to(row, {
+            xPercent: endX,
+            duration: 15,
             ease: 'none',
-            duration: singleCardDuration * cardsPerRow,
+            repeat: -1,
+            yoyo: true
+          })
+        }
+      } else {
+        // 桌面端保持原有动画
+        const cardsPerRow = 20
+        const singleCardDuration = 8
+        
+        const currentRefs = [...rowRefs.current]
+        for (const row of currentRefs) {
+          if (!row) continue
+
+          const isEvenRow = currentRefs.indexOf(row) % 2 === 0
+          const tl = gsap.timeline({ 
+            repeat: -1,
+            defaults: {
+              ease: 'none',
+              duration: singleCardDuration * cardsPerRow,
+            }
+          })
+          
+          if (isEvenRow) {
+            tl.fromTo(row,
+              { xPercent: 0 },
+              { xPercent: -100 }
+            ).set(row, { xPercent: 0 })
+          } else {
+            tl.fromTo(row,
+              { xPercent: -100 },
+              { xPercent: 0 }
+            ).set(row, { xPercent: -100 })
           }
-        })
-        
-        // 使用 will-change 优化
-        row.style.willChange = 'transform'
-        
-        if (isEvenRow) {
-          tl.fromTo(row,
-            { xPercent: 0 },
-            { 
-              xPercent: -100,
-              immediateRender: false
-            }
-          ).set(row, { xPercent: 0, immediateRender: false })
-        } else {
-          tl.fromTo(row,
-            { xPercent: -100 },
-            { 
-              xPercent: 0,
-              immediateRender: false
-            }
-          ).set(row, { xPercent: -100, immediateRender: false })
         }
       }
     }
 
-    // 启动自动滚动
     autoScroll()
     
     // 添加鼠标交互
@@ -200,12 +213,10 @@ export function GridMotion({
             isLoaded && "opacity-100"
           )}
         >
-          {[...Array(window?.innerWidth && window.innerWidth < 768 ? 6 : 4)].map((_, rowIndex) => {
-            // 减少卡片数量，优化性能
-            // 移动端减少卡片数量以提升性能
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    const cardsPerRow = isMobile ? 12 : 20;
-    const sequence = [...Array(cardsPerRow)].map((_, i) => ({
+          {[...Array(window?.innerWidth && window.innerWidth < 768 ? 8 : 4)].map((_, rowIndex) => {
+            const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+            const cardsPerRow = isMobile ? 8 : 20;
+            const sequence = [...Array(cardsPerRow)].map((_, i) => ({
               content: combinedItems[Math.floor((rowIndex * 19937 + i * 104729) % combinedItems.length)],
               index: i
             }))

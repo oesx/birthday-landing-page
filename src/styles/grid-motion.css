@@ -16,16 +16,16 @@
   position: relative;
   z-index: 2;
   flex: none;
-  height: 150vh;
+  height: 120vh;
   width: 100vw;
-  transform: rotate(-10deg) scale(1.2);
+  transform: rotate(-10deg) scale(1.8);
   transform-origin: center;
-  margin-top: -25vh;
+  margin-top: -10vh;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   perspective: 1000px;
   transform-style: preserve-3d;
-  will-change: opacity;
+  will-change: transform;
   contain: layout style paint;
 }
 
@@ -66,17 +66,26 @@
 .grid-motion-item {
   position: relative;
   cursor: pointer;
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   contain: layout style paint;
+  transform: scale(0.9);
+  transition: transform 0.2s ease;
+}
+
+.grid-motion-item:hover {
+  transform: scale(1);
 }
 
 @media (min-width: 768px) {
   .grid-motion-item {
     width: 180px;
     height: 180px;
+    transform: none;
   }
 }
+
+.grid-motion-item {
   border-radius: 0.75rem;
   overflow: hidden;
   flex-shrink: 0;
