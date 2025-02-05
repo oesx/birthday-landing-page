@@ -34,8 +34,8 @@ export const metadata: Metadata = {
   description: "生日快乐！",
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/favicon.png", sizes: "192x192" },
     ],
   },
 };
