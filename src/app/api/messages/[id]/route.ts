@@ -1,4 +1,5 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { auth } from '@clerk/nextjs/server';
