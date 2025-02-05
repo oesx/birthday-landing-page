@@ -18,14 +18,21 @@
   flex: none;
   height: 170vh;
   width: 100vw;
-  transform: rotate(-10deg) scale(1.1);
+  transform: rotate(-10deg) scale(1.3);
   transform-origin: center;
-  margin-top: -10vh;
+  margin-top: -35vh;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   perspective: 1000px;
   transform-style: preserve-3d;
   will-change: opacity;
+}
+
+@media (min-width: 768px) {
+  .grid-motion-container {
+    transform: rotate(-10deg) scale(1.1);
+    margin-top: -10vh;
+  }
 }
 
 .grid-motion-row {
@@ -40,7 +47,7 @@
   left: 0;
   height: 100%;
   display: flex;
-  gap: 0.5rem;
+  gap: 0.25rem;
   will-change: transform;
   transform: translate3d(0, 0, 0);
   transform-style: preserve-3d;
@@ -48,11 +55,25 @@
   contain: layout style paint;
 }
 
+@media (min-width: 768px) {
+  .grid-motion-track {
+    gap: 0.5rem;
+  }
+}
+
 .grid-motion-item {
   position: relative;
   cursor: pointer;
-  width: 41vmin;
-  height: 41vmin;
+  width: 120px;
+  height: 120px;
+}
+
+@media (min-width: 768px) {
+  .grid-motion-item {
+    width: 180px;
+    height: 180px;
+  }
+}
   border-radius: 0.75rem;
   overflow: hidden;
   flex-shrink: 0;
