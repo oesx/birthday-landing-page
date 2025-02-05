@@ -24,6 +24,12 @@ const notoSerif = Noto_Serif_SC({
 export const metadata: Metadata = {
   title: "Happy Birthday!",
   description: "生日快乐！",
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.png", type: "image/png", sizes: "32x32" },
+    ],
+  },
 };
 
 export default function RootLayout({
