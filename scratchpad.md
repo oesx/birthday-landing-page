@@ -145,6 +145,22 @@
    - 使用 --force 标志
    - 明确安装特定版本的包
    - 先安装关键依赖，再安装其他包
+
+3. 在 TypeScript 中使用 CSS 自定义属性时的注意事项：
+   - TypeScript 默认不识别 CSS 自定义属性（以 -- 开头的属性）
+   - 需要使用类型断言来处理自定义属性：`{ ['--custom-prop' as string]: value }`
+   - 或者使用 data 属性结合 CSS 选择器来动态应用样式
+   - 示例：
+     ```typescript
+     // 不推荐：直接使用自定义属性
+     style={{ '--bg-url': `url(${content})` }}
+     
+     // 推荐：使用类型断言
+     style={{ ['--bg-url' as string]: `url(${content})` }}
+     
+     // 推荐：使用 data 属性
+     data-bg-url={shouldLoad ? "true" : undefined}
+     ```
 3. 在 Dockerfile 中，使用多阶段构建可以提高构建成功率并减小最终镜像大小：
    - deps 阶段：只安装依赖
    - builder 阶段：复制依赖并构建应用

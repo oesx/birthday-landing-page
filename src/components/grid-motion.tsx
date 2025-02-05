@@ -204,7 +204,8 @@ export function GridMotion({
               )} 
               role="img" 
               aria-label="Album cover"
-              {...(shouldLoad ? { 'data-bg-url': true, style: { '--bg-url': `url(${content})` } } : {})}
+              data-bg-url={shouldLoad ? "true" : undefined}
+              style={shouldLoad ? { ['--bg-url' as string]: `url(${content})` } : undefined}
             />
           )
         ) : (
