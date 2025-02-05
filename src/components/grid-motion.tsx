@@ -67,7 +67,9 @@ export function GridMotion({
 
     // 自动滚动动画
     const autoScroll = () => {
-      const singleCardDuration = 8 // 增加滚动时间，减少 CPU 占用
+      // 移动端增加滚动时间，减少性能消耗
+      const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+      const singleCardDuration = isMobile ? 12 : 8 // 移动端更慢的滚动速度
       const cardsPerRow = 10
       
       const currentRefs = [...rowRefs.current]
@@ -200,7 +202,10 @@ export function GridMotion({
         >
           {[...Array(window?.innerWidth && window.innerWidth < 768 ? 6 : 4)].map((_, rowIndex) => {
             // 减少卡片数量，优化性能
-            const sequence = [...Array(20)].map((_, i) => ({
+            // 移动端减少卡片数量以提升性能
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const cardsPerRow = isMobile ? 12 : 20;
+    const sequence = [...Array(cardsPerRow)].map((_, i) => ({
               content: combinedItems[Math.floor((rowIndex * 19937 + i * 104729) % combinedItems.length)],
               index: i
             }))
