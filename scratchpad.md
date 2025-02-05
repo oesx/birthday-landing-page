@@ -2,27 +2,38 @@
 
 使用 Docker Compose 部署项目
 
-## Deployment Steps
-[X] 修复构建错误
-  - [X] 修复 TypeScript 类型错误（修复了 API 路由类型）
-  - [X] 修复 ESLint 警告（处理了未使用的变量）
-  - [X] 修复依赖问题（更新了 next.config.js）
-[X] 准备 Docker 配置
-  - [X] 创建 Dockerfile
-  - [X] 创建 docker-compose.yml
-  - [X] 创建 nginx.conf
-  - [X] 创建 .dockerignore
-[X] 配置构建优化
-  - [X] 启用 standalone 输出
-  - [X] 配置多阶段构建
-  - [X] 优化 Docker 缓存
+## 部署步骤
+[X] 准备部署文件
+  - [X] 更新 Dockerfile
+  - [X] 更新 docker-compose.yml
+  - [X] 更新部署脚本 deploy.sh
+
 [ ] 部署到 VPS
-  - [X] 创建部署包
+  - [ ] 构建和保存 Docker 镜像
+  - [ ] 创建部署包
   - [ ] 上传到 VPS
-  - [ ] 启动服务
-[ ] 配置域名和 HTTPS
-  - [ ] 配置域名解析
+  - [ ] 在 VPS 上部署
+
+[ ] 配置服务
+  - [ ] 配置 Nginx
   - [ ] 配置 SSL 证书
+  - [ ] 配置域名
+
+## 部署注意事项
+
+1. 确保 VPS 上安装了 Docker 和 Docker Compose
+2. 确保环境变量文件 .env.local 已配置好
+3. 确保数据目录权限正确
+4. 确保端口 80 和 443 未被占用
+
+## 部署后检查清单
+
+- [ ] 检查服务是否正常运行：`docker-compose ps`
+- [ ] 检查应用日志：`docker-compose logs app`
+- [ ] 检查 Nginx 日志：`docker-compose logs nginx`
+- [ ] 测试 HTTPS 是否正常工作
+- [ ] 测试留言功能是否正常
+- [ ] 测试用户登录是否正常
 
 ## Progress
 

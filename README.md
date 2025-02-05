@@ -15,7 +15,53 @@
 - **样式**：Tailwind CSS
 - **动画**：Framer Motion
 - **认证**：Clerk
-- **部署**：Vercel
+- **容器化**：Docker
+- **反向代理**：Nginx
+
+## 部署方式
+
+### 使用 Docker Compose 部署（推荐）
+
+1. 在 VPS 上安装 Docker 和 Docker Compose：
+```bash
+curl -fsSL https://get.docker.com | sh
+curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+chmod +x /usr/local/bin/docker-compose
+```
+
+2. 克隆项目并进入目录：
+```bash
+git clone https://github.com/oesx/birthday-landing-page.git
+cd birthday-landing-page
+```
+
+3. 配置环境变量：
+```bash
+cp .env.example .env.local
+# 编辑 .env.local 文件，填入正确的环境变量
+nano .env.local
+```
+
+4. 启动服务：
+```bash
+docker-compose up -d --build
+```
+
+5. 查看服务状态：
+```bash
+docker-compose ps
+docker-compose logs -f app
+```
+
+### 使用部署脚本
+
+我们提供了一个部署脚本来简化部署过程：
+
+```bash
+./deploy-from-git.sh your-vps-ip
+```
+
+脚本会输出详细的部署步骤和命令。
 
 ## 环境要求
 
