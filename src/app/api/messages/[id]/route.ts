@@ -1,11 +1,5 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-
-type DeleteContext = {
-  params: {
-    id: string;
-  };
-};
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { auth } from '@clerk/nextjs/server';
@@ -16,7 +10,7 @@ const messagesFile = path.join(process.cwd(), 'data/messages.json');
 
 export async function DELETE(
   _req: NextRequest,
-  { params }: DeleteContext
+  { params }: { params: { id: string } }
 ) {
   try {
     // 检查用户是否已登录
