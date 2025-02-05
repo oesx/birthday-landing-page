@@ -2,13 +2,12 @@ import { authMiddleware } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
 export default authMiddleware({
-  afterAuth(auth) {
-    // 处理认证错误
-    if (!auth.userId && !auth.isPublicRoute) {
-      return NextResponse.json(
-        { error: 'Authentication required' },
-        { status: 401 }
-      );
+  afterAuth(auth, req) {
+    // 只有管理路由需要认证
+    if (!auth.userId && req.nextUrl.pathname.startsWith('/admin')) {
+      const signInUrl = new URL('/sign-in', req.url);
+      signInUrl.searchParams.set('redirect_url', req.url);
+      return NextResponse.redirect(signInUrl);
     }
     return NextResponse.next();
   },
@@ -16,12 +15,12 @@ export default authMiddleware({
     '/',
     '/sign-in',
     '/sign-up',
-    '/api/webhooks/user',
-    '/api/webhooks/clerk',
-    '/api/admin',  // 公开的留言板 API
+    '/api/messages',  // 公开留言提交接口
+    '/api/messages/count',
   ],
   ignoredRoutes: [
-    '/((?!api|trpc))(_next|.+..+)(.*)'
+    '/((?!api|trpc))(_next|.+..+)(.*)',
+    '/api/messages/(.*)'
   ]
 });
  
