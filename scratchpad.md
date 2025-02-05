@@ -37,12 +37,16 @@
 
 ## Next.js API Routes
 - 在 Next.js 15+ 中，API 路由可能需要添加 `export const dynamic = 'force-dynamic'` 来避免构建时的数据收集错误
-- API 路由的参数类型应该使用下面的格式：
+- API 路由的参数类型应该使用下面的格式，并从第二个参数中解构出 `params`：
   ```typescript
-  context: { 
-    params: { id: string } 
-  }
+  export async function DELETE(
+    _req: NextRequest,
+    { params }: { 
+      params: { id: string } 
+    }
+  )
   ```
+- 如果不使用某个参数，在参数名前加下划线来避免 ESLint 警告，例如 `_req`
 - 路由处理器的第一个参数应该使用 `NextRequest` 而不是 `Request` 类型
 - 使用 `import type { NextRequest } from 'next/server'` 而不是 `import { NextRequest }` 来导入类型
 - 使用 `@clerk/nextjs/server` 而不是 `@clerk/nextjs` 来导入 auth()

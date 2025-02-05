@@ -9,8 +9,8 @@ export const dynamic = 'force-dynamic';
 const messagesFile = path.join(process.cwd(), 'data/messages.json');
 
 export async function DELETE(
-  req: NextRequest,
-  context: { 
+  _req: NextRequest,
+  { params }: { 
     params: { id: string } 
   }
 ) {
