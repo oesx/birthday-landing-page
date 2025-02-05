@@ -2,7 +2,7 @@ import { authMiddleware } from '@clerk/nextjs/server';
 import { NextResponse } from 'next/server';
 
 export default authMiddleware({
-  afterAuth(auth, _req) {
+  afterAuth(auth) {
     // 处理认证错误
     if (!auth.userId && !auth.isPublicRoute) {
       return NextResponse.json(
