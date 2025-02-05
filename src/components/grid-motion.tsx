@@ -13,6 +13,7 @@ interface GridMotionProps {
   gradientColor?: string
   className?: string
   onItemClick?: (index: number) => void
+  isLoaded?: boolean
 }
 
 const defaultItems = Array.from({ length: 10 }, (_, index) => `Item ${index + 1}`)
@@ -66,41 +67,41 @@ export function GridMotion({
 
     // 自动滚动动画
     const autoScroll = () => {
-      const singleCardDuration = 6 // 每张卡片经过一个位置的时间（秒）
-      const cardsPerRow = 10 // 每行显示的卡片数
+      const singleCardDuration = 8 // 增加滚动时间，减少 CPU 占用
+      const cardsPerRow = 10
       
-      const currentRefs = [...rowRefs.current] // 复制引用以避免 cleanup 问题
+      const currentRefs = [...rowRefs.current]
       for (const row of currentRefs) {
         if (!row) return
 
-        // 偶数行向左，奇数行向右
         const isEvenRow = currentRefs.indexOf(row) % 2 === 0
-
-        // 创建无限滚动动画
-        const tl = gsap.timeline({ repeat: -1 })
+        const tl = gsap.timeline({ 
+          repeat: -1,
+          defaults: {
+            ease: 'none',
+            duration: singleCardDuration * cardsPerRow,
+          }
+        })
+        
+        // 使用 will-change 优化
+        row.style.willChange = 'transform'
         
         if (isEvenRow) {
-          // 偶数行向左滚动
           tl.fromTo(row,
-            { x: '0%' },
-            {
-              x: '-100%',
-              duration: singleCardDuration * cardsPerRow,
-              ease: 'none',
+            { xPercent: 0 },
+            { 
+              xPercent: -100,
               immediateRender: false
             }
-          ).set(row, { x: '0%', immediateRender: false })
+          ).set(row, { xPercent: 0, immediateRender: false })
         } else {
-          // 奇数行向右滚动
           tl.fromTo(row,
-            { x: '-100%' },
-            {
-              x: '0%',
-              duration: singleCardDuration * cardsPerRow,
-              ease: 'none',
+            { xPercent: -100 },
+            { 
+              xPercent: 0,
               immediateRender: false
             }
-          ).set(row, { x: '-100%', immediateRender: false })
+          ).set(row, { xPercent: -100, immediateRender: false })
         }
       }
     }
@@ -156,13 +157,21 @@ export function GridMotion({
                 loop
                 muted
                 playsInline
-                preload="auto"
+                preload="metadata"
+                loading="lazy"
+                width="200"
+                height="200"
               >
                 <source src={content} type="video/mp4" />
               </video>
             </div>
           ) : (
-            <div className={`grid-motion-image ${getDynamicBgClass(content)}`} role="img" aria-label="Album cover" />
+            <div 
+              className={`grid-motion-image ${getDynamicBgClass(content)}`} 
+              role="img" 
+              aria-label="Album cover"
+              style={{ willChange: 'transform' }}
+            />
           )
         ) : (
           <div className="grid-motion-text">
@@ -182,18 +191,23 @@ export function GridMotion({
         )}
         data-gradient-color={gradientColor}
       >
-        <div className="grid-motion-container grid grid-rows-4 grid-cols-[100%] gap-[0.1rem]">
+        <div 
+          className={cn(
+            "grid-motion-container grid grid-rows-4 grid-cols-[100%] gap-[0.1rem]",
+            !isLoaded && "opacity-0 transition-opacity duration-500",
+            isLoaded && "opacity-100"
+          )}
+        >
           {[...Array(4)].map((_, rowIndex) => {
-            // 生成足够多的卡片来实现无限滚动
-            const sequence = [...Array(40)].map((_, i) => ({
+            // 减少卡片数量，优化性能
+            const sequence = [...Array(20)].map((_, i) => ({
               content: combinedItems[Math.floor((rowIndex * 19937 + i * 104729) % combinedItems.length)],
               index: i
             }))
             
             return (
               <div
-                key={`grid-row-${// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-rowIndex}`}
+                key={`grid-row-${rowIndex}`}
                 className={cn(
                   "relative w-screen overflow-hidden",
                   "h-full"
@@ -202,6 +216,7 @@ rowIndex}`}
                 <div
                   ref={(el: HTMLDivElement | null) => { rowRefs.current[rowIndex] = el }}
                   className="grid-motion-track flex gap-2"
+                  style={{ willChange: 'transform' }}
                 >
                   {sequence.map(({content, index}) => renderCard(content, rowIndex, index))}
                 </div>
