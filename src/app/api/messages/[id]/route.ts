@@ -7,9 +7,13 @@ export const dynamic = 'force-dynamic';
 
 const messagesFile = path.join(process.cwd(), 'data/messages.json');
 
+type Context = {
+  params: { id: string }
+}
+
 export async function DELETE(
   _request: Request,
-  context: { params: { id: string } }
+  { params }: Context
 ) {
   try {
     // 检查用户是否已登录
@@ -23,7 +27,7 @@ export async function DELETE(
     const messages = JSON.parse(content);
 
     // 找到并删除指定消息
-    const messageId = Number.parseInt(context.params.id, 10);
+    const messageId = Number.parseInt(params.id, 10);
     const updatedMessages = messages.filter((msg: { id: number }) => msg.id !== messageId);
 
     // 写入更新后的消息
