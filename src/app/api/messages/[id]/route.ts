@@ -6,7 +6,7 @@ import { type NextRequest } from 'next/server';
 
 const messagesFile = path.join(process.cwd(), 'data/messages.json');
 
-// DELETE /api/messages/[id]
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function DELETE(request: NextRequest, { params }: any) {
   try {
     // 检查用户是否已登录
