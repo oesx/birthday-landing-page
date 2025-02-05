@@ -1,5 +1,7 @@
+import textShadow from './src/lib/text-shadow';
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -33,5 +35,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('./src/lib/text-shadow')],
+  plugins: [textShadow],
 }

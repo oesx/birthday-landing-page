@@ -4,7 +4,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
-  htmlFor?: string;
+  htmlFor: string;
 }
 
 const Label = React.forwardRef<HTMLLabelElement, LabelProps>(

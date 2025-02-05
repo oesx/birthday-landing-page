@@ -71,7 +71,7 @@ export function VinylPlayer({
             }}
             transition={{
               duration: 2,
-              repeat: isPlaying ? Infinity : 0,
+              repeat: isPlaying ? Number.POSITIVE_INFINITY : 0,
               ease: "linear",
             }}
           >
@@ -103,9 +103,11 @@ export function VinylPlayer({
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="flex items-center gap-3 bg-black/60 backdrop-blur-sm p-2 rounded-full">
             <button
+              type="button"
               onClick={onPrevSong}
               className="p-1.5 rounded-full hover:bg-white/20 transition-colors"
               title="上一首"
+              aria-label="上一首"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -118,15 +120,19 @@ export function VinylPlayer({
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 className="text-white"
+                role="img"
+                aria-hidden="true"
               >
                 <polygon points="19 20 9 12 19 4 19 20"></polygon>
                 <line x1="5" y1="19" x2="5" y2="5"></line>
               </svg>
             </button>
             <button
+              type="button"
               onClick={onPlayPause}
               className="p-1.5 rounded-full hover:bg-white/20 transition-colors"
               title="播放/暂停"
+              aria-label="播放/暂停"
             >
               {isPlaying ? (
                 <svg
@@ -177,6 +183,8 @@ export function VinylPlayer({
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 className="text-white"
+                role="img"
+                aria-hidden="true"
               >
                 <polygon points="5 4 15 12 5 20 5 4"></polygon>
                 <line x1="19" y1="5" x2="19" y2="19"></line>

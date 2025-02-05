@@ -35,6 +35,26 @@
 
 ## Lessons
 
+## Clerk Authentication
+- Clerk 需要正确的环境变量配置：
+  - `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`
+  - `CLERK_SECRET_KEY`
+- 使用 `authMiddleware` 的 `afterAuth` 回调可以自定义未认证请求的响应：
+  ```typescript
+  export default authMiddleware({
+    publicRoutes: ["/"],
+    afterAuth(auth, req, evt) {
+      if (!auth.userId && !auth.isPublicRoute) {
+        return new Response(
+          JSON.stringify({ error: 'Unauthorized' }),
+          { status: 401, headers: { 'content-type': 'application/json' } }
+        );
+      }
+    },
+  });
+  ```
+- 在私有仓库中可以将 `.env.local` 文件加入版本控制，但需要从 `.gitignore` 中移除相关配置
+
 ## Next.js API Routes
 - 在 Next.js 15+ 中，API 路由可能需要添加 `export const dynamic = 'force-dynamic'` 来避免构建时的数据收集错误
 - API 路由的参数类型应该直接使用内联类型定义，而不是单独的类型别名：
