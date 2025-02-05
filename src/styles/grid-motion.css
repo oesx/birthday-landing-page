@@ -18,7 +18,7 @@
   flex: none;
   height: 120vh;
   width: 100vw;
-  transform: rotate(-10deg) scale(1.8);
+  transform: rotate(-10deg) scale(1.1);
   transform-origin: center;
   margin-top: -10vh;
   -webkit-backface-visibility: hidden;
@@ -29,6 +29,25 @@
   contain: layout style paint;
 }
 
+/* 竖屏设备 */
+@media (orientation: portrait) {
+  .grid-motion-container {
+    height: 180vh;
+    transform: rotate(-10deg) scale(2.2);
+    margin-top: -40vh;
+  }
+}
+
+/* 横屏移动设备 */
+@media (orientation: landscape) and (max-width: 767px) {
+  .grid-motion-container {
+    height: 150vh;
+    transform: rotate(-10deg) scale(1.5);
+    margin-top: -25vh;
+  }
+}
+
+/* 桌面端 */
 @media (min-width: 768px) {
   .grid-motion-container {
     height: 170vh;
@@ -66,8 +85,8 @@
 .grid-motion-item {
   position: relative;
   cursor: pointer;
-  width: 80px;
-  height: 80px;
+  width: 180px;
+  height: 180px;
   contain: layout style paint;
   transform: scale(0.9);
   transition: transform 0.2s ease;
@@ -77,6 +96,23 @@
   transform: scale(1);
 }
 
+/* 竖屏设备 */
+@media (orientation: portrait) {
+  .grid-motion-item {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+/* 横屏移动设备 */
+@media (orientation: landscape) and (max-width: 767px) {
+  .grid-motion-item {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* 桌面端 */
 @media (min-width: 768px) {
   .grid-motion-item {
     width: 180px;

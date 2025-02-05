@@ -213,9 +213,16 @@ export function GridMotion({
             isLoaded && "opacity-100"
           )}
         >
-          {[...Array(window?.innerWidth && window.innerWidth < 768 ? 8 : 4)].map((_, rowIndex) => {
+          {[...Array(typeof window !== 'undefined' ? 
+            // 竖屏设备显示更多行
+            window.matchMedia('(orientation: portrait)').matches ? 12 : 
+            // 横屏设备和桌面端
+            window.innerWidth < 768 ? 8 : 4
+          : 4)].map((_, rowIndex) => {
+            const isPortrait = typeof window !== 'undefined' && window.matchMedia('(orientation: portrait)').matches;
             const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-            const cardsPerRow = isMobile ? 8 : 20;
+            // 竖屏设备每行显示更少的卡片
+            const cardsPerRow = isPortrait ? 6 : (isMobile ? 8 : 20);
             const sequence = [...Array(cardsPerRow)].map((_, i) => ({
               content: combinedItems[Math.floor((rowIndex * 19937 + i * 104729) % combinedItems.length)],
               index: i
