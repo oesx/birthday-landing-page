@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { readFile, writeFile } from 'fs/promises';
-import path from 'path';
-import { auth } from '@clerk/nextjs';
+import { readFile, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import { auth } from '@clerk/nextjs/server';
 
 const messagesFile = path.join(process.cwd(), 'data/messages.json');
 
@@ -19,7 +19,7 @@ export async function DELETE(request: Request) {
 
     // 找到并删除指定消息
     const url = new URL(request.url);
-    const messageId = parseInt(url.pathname.split('/').pop() || '0');
+    const messageId = Number.parseInt(url.pathname.split('/').pop() || '0', 10);
     const updatedMessages = messages.filter((msg: { id: number }) => msg.id !== messageId);
 
     // 写入更新后的消息
