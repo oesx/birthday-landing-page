@@ -37,7 +37,13 @@
 
 ## Next.js API Routes
 - 在 Next.js 15+ 中，API 路由可能需要添加 `export const dynamic = 'force-dynamic'` 来避免构建时的数据收集错误
-- API 路由的参数类型应该使用 `{ params: { id: string } }` 这样的内联类型定义，而不是自定义接口
+- API 路由的参数类型必须包含 `params` 和 `searchParams` 两个字段，例如：
+  ```typescript
+  {
+    params: { id: string };
+    searchParams: { [key: string]: string | string[] | undefined };
+  }
+  ```
 - 路由处理器的第一个参数应该使用 `NextRequest` 而不是 `Request` 类型
 - 使用 `import type { NextRequest } from 'next/server'` 而不是 `import { NextRequest }` 来导入类型
 - 使用 `@clerk/nextjs/server` 而不是 `@clerk/nextjs` 来导入 auth()
