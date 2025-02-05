@@ -18,6 +18,7 @@ const nextConfig = {
     ],
   },
   experimental: {
+    optimizePackageImports: ['@clerk/nextjs'],
     turbo: {
       rules: {
         '*.js': ['jsx-loader']
