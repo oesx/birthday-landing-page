@@ -10,9 +10,8 @@ const messagesFile = path.join(process.cwd(), 'data/messages.json');
 
 export async function DELETE(
   req: NextRequest,
-  { params, searchParams }: { 
-    params: { id: string };
-    searchParams: { [key: string]: string | string[] | undefined };
+  context: { 
+    params: { id: string } 
   }
 ) {
   try {
