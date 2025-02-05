@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { auth } from '@clerk/nextjs/server';
@@ -7,13 +7,9 @@ export const dynamic = 'force-dynamic';
 
 const messagesFile = path.join(process.cwd(), 'data/messages.json');
 
-type Context = {
-  params: { id: string }
-}
-
 export async function DELETE(
-  _request: Request,
-  { params }: Context
+  req: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   try {
     // 检查用户是否已登录
