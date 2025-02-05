@@ -197,14 +197,14 @@ export function GridMotion({
             </div>
           ) : (
             <div 
-              className={`grid-motion-image ${shouldLoad ? getDynamicBgClass(content) : ''}`} 
+              className={cn(
+                'grid-motion-image',
+                shouldLoad && 'loaded',
+                shouldLoad && getDynamicBgClass(content)
+              )} 
               role="img" 
               aria-label="Album cover"
-              style={{
-                willChange: 'transform',
-                backgroundImage: shouldLoad ? `url(${content})` : 'none',
-                backgroundColor: shouldLoad ? 'transparent' : '#1a1a1a'
-              }}
+              {...(shouldLoad ? { 'data-bg-url': true, style: { '--bg-url': `url(${content})` } } : {})}
             />
           )
         ) : (
@@ -248,7 +248,7 @@ export function GridMotion({
             
             return (
               <div
-                key={`grid-row-${rowIndex}`}
+                key={`grid-row-${rowIndex}-${Math.random().toString(36).slice(2, 7)}`}
                 className={cn(
                   "relative w-screen overflow-hidden",
                   "h-full"
@@ -257,7 +257,7 @@ export function GridMotion({
                 <div
                   ref={(el: HTMLDivElement | null) => { rowRefs.current[rowIndex] = el }}
                   className="grid-motion-track flex gap-2 will-change-transform"               >
-                  {sequence.map(({content, index}, i) => renderCard(content, rowIndex, `${rowIndex}-${i}`))}
+                  {sequence.map(({content}, i) => renderCard(content, rowIndex, i))}
                 </div>
               </div>
             )

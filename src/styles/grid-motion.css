@@ -253,3 +253,21 @@
 .will-change-transform {
   will-change: transform;
 }
+
+.grid-motion-image {
+  will-change: transform;
+  background-color: #1a1a1a;
+  transition: background-color 0.3s ease;
+}
+
+.grid-motion-image.loaded {
+  background-color: transparent;
+}
+
+.grid-motion-image[data-bg-url] {
+  background-image: var(--bg-url);
+}
+
+.grid-motion-image:not([data-bg-url]) {
+  background-image: none;
+}
