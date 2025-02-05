@@ -6,7 +6,8 @@ export default authMiddleware({
     '/sign-in',
     '/sign-up',
     '/api/webhooks/user',
-    '/api/webhooks/clerk'
+    '/api/webhooks/clerk',
+    '/api/messages',  // 公开的留言板 API
   ],
   ignoredRoutes: [
     '/((?!api|trpc))(_next|.+..+)(.*)'

@@ -19,7 +19,10 @@ export function MessageManagement() {
     try {
       setIsLoading(true);
       const response = await fetch('/api/admin');
-      if (!response.ok) throw new Error('Failed to fetch messages');
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to fetch messages');
+      }
       const data = await response.json();
       setMessages(data);
     } catch (error) {
@@ -39,7 +42,10 @@ export function MessageManagement() {
         method: 'DELETE',
       });
 
-      if (!response.ok) throw new Error('Failed to delete message');
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to delete message');
+      }
 
       // 重新加载消息列表
       await fetchMessages();
