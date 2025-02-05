@@ -151,6 +151,20 @@ export function GridMotion({
 
   const renderCard = (content: string | ReactNode, rowIndex: number, i: number) => {
     const uniqueKey = `item-${rowIndex}-${i}`
+    const isPortrait = typeof window !== 'undefined' && window.matchMedia('(orientation: portrait)').matches
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768
+    
+    // 计算当前卡片是否在可视区域内
+    const isInViewport = () => {
+      if (typeof window === 'undefined') return true
+      const viewportHeight = window.innerHeight
+      const cardHeight = isPortrait ? 60 : (isMobile ? 80 : 180)
+      const rowPosition = rowIndex * cardHeight
+      return rowPosition >= -cardHeight && rowPosition <= viewportHeight + cardHeight
+    }
+
+    // 延迟加载不在可视区域内的卡片
+    const shouldLoad = isInViewport()
     
     return (
       <button 
@@ -165,27 +179,33 @@ export function GridMotion({
         {typeof content === 'string' ? (
           content.endsWith('.mp4') ? (
             <div className="grid-motion-content">
-              <video
-                key={`video-${uniqueKey}`}
-                className="grid-motion-video"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                loading="lazy"
-                width="200"
-                height="200"
-              >
-                <source src={content} type="video/mp4" />
-              </video>
+              {shouldLoad && (
+                <video
+                  key={`video-${uniqueKey}`}
+                  className="grid-motion-video"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="metadata"
+                  loading="lazy"
+                  width={isPortrait ? "60" : (isMobile ? "80" : "200")}
+                  height={isPortrait ? "60" : (isMobile ? "80" : "200")}
+                >
+                  <source src={content} type="video/mp4" />
+                </video>
+              )}
             </div>
           ) : (
             <div 
-              className={`grid-motion-image ${getDynamicBgClass(content)}`} 
+              className={`grid-motion-image ${shouldLoad ? getDynamicBgClass(content) : ''}`} 
               role="img" 
               aria-label="Album cover"
-              style={{ willChange: 'transform' }}
+              style={{
+                willChange: 'transform',
+                backgroundImage: shouldLoad ? `url(${content})` : 'none',
+                backgroundColor: shouldLoad ? 'transparent' : '#1a1a1a'
+              }}
             />
           )
         ) : (

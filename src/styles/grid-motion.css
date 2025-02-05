@@ -27,14 +27,28 @@
   transform-style: preserve-3d;
   will-change: transform;
   contain: layout style paint;
+  display: grid;
+  grid-template-rows: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 0.5rem;
+  padding: 1rem;
 }
 
 /* 竖屏设备 */
 @media (orientation: portrait) {
   .grid-motion-container {
-    height: 180vh;
-    transform: rotate(-10deg) scale(2.2);
-    margin-top: -40vh;
+    height: 200vh;
+    transform: rotate(-10deg) scale(2.4);
+    margin-top: -50vh;
+    grid-template-rows: repeat(12, minmax(60px, 1fr));
+  }
+
+  .grid-motion-track {
+    gap: 0.25rem;
+  }
+
+  .grid-motion-item {
+    width: 60px;
+    height: 60px;
   }
 }
 
@@ -42,8 +56,18 @@
 @media (orientation: landscape) and (max-width: 767px) {
   .grid-motion-container {
     height: 150vh;
-    transform: rotate(-10deg) scale(1.5);
+    transform: rotate(-10deg) scale(1.6);
     margin-top: -25vh;
+    grid-template-rows: repeat(8, minmax(80px, 1fr));
+  }
+
+  .grid-motion-track {
+    gap: 0.35rem;
+  }
+
+  .grid-motion-item {
+    width: 80px;
+    height: 80px;
   }
 }
 
