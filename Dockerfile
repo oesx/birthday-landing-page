@@ -20,6 +20,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# 复制生产环境变量
+COPY .env.production .env
+
 # 设置构建环境变量
 ENV NEXT_TELEMETRY_DISABLED=1
 

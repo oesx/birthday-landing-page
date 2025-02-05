@@ -8,7 +8,7 @@ services:
     environment:
       - NODE_ENV=production
     env_file:
-      - .env.local
+      - .env.production
     restart: unless-stopped
     volumes:
       - ./data:/app/data  # 持久化消息数据
