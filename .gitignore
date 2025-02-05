@@ -20,6 +20,21 @@
 # production
 /build
 
+# deployment
+*.tar
+*.tar.gz
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
 # misc
 .DS_Store
 *.pem
@@ -39,3 +54,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# clerk configuration (can include secrets)
+/.clerk/
+.env.local

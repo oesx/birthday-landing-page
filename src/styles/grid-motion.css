@@ -1,0 +1,114 @@
+:root {
+  --gradient-color: black;
+}
+
+.grid-motion-gradient {
+  background: radial-gradient(circle, var(--gradient-color, black) 0%, transparent 100%);
+}
+
+.grid-motion-gradient[data-gradient-color] {
+  --gradient-color: attr(data-gradient-color);
+}
+
+.grid-motion-container {
+  position: relative;
+  z-index: 2;
+  flex: none;
+  height: 170vh;
+  width: 100vw;
+  transform: rotate(-10deg) scale(1.1);
+  transform-origin: center;
+  margin-top: -10vh;
+}
+
+.grid-motion-row {
+  height: 100%;
+  position: relative;
+}
+
+.grid-motion-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  display: flex;
+  gap: 0.5rem;
+  will-change: transform;
+  transform-style: preserve-3d; /* 提高性能 */
+  backface-visibility: hidden; /* 防止闪烁 */
+}
+
+.grid-motion-item {
+  position: relative;
+  cursor: pointer;
+  width: 41vmin;
+  height: 41vmin;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.grid-motion-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.grid-motion-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: transform 0.3s;
+  transform: scale(1.02);
+}
+
+.grid-motion-image:hover {
+  transform: scale(1.1);
+}
+
+.grid-motion-video-inner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.grid-motion-image-inner {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.grid-motion-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+  transform: scale(1.02);
+}
+
+.grid-motion-video:hover {
+  transform: scale(1.1);
+}
+
+.grid-motion-text {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: hsl(var(--foreground));
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}

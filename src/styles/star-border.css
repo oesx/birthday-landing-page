@@ -1,0 +1,17 @@
+:root {
+  --star-color: hsl(var(--foreground));
+  --animation-speed: 6s;
+}
+
+.star-border-gradient {
+  background: radial-gradient(circle, var(--star-color, hsl(var(--foreground))), transparent 10%);
+  animation-duration: var(--animation-speed, 6s);
+}
+
+.star-border-gradient[data-star-color] {
+  --star-color: attr(data-star-color);
+}
+
+.star-border-gradient[data-animation-speed] {
+  --animation-speed: attr(data-animation-speed);
+}

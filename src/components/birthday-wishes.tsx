@@ -18,21 +18,21 @@ const birthdayWishes = [
 
 export function BirthdayWishes() {
   return (
-    <div className="flex flex-col gap-16 py-8">
+    <div className="flex flex-col gap-24 py-12 w-full overflow-hidden">
       <VelocityScroll 
         text={birthdayWishes[0]} 
         default_velocity={2} 
-        className="text-4xl font-bold text-white"
+        className="text-5xl font-bold text-white tracking-[0.2em] whitespace-nowrap"
       />
       <VelocityScroll 
         text={birthdayWishes[1]} 
         default_velocity={3} 
-        className="text-4xl font-bold text-blue-400"
+        className="text-5xl font-bold text-blue-400 tracking-[0.2em] whitespace-nowrap"
       />
       <VelocityScroll 
         text={birthdayWishes[2]} 
         default_velocity={4} 
-        className="text-4xl font-bold text-pink-400"
+        className="text-5xl font-bold text-pink-400 tracking-[0.2em] whitespace-nowrap"
       />
     </div>
   );

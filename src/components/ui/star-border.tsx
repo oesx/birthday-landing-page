@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils"
-import { ElementType, ComponentPropsWithoutRef } from "react"
+import type { ElementType, ComponentPropsWithoutRef } from "react"
 
 interface StarBorderProps<T extends ElementType> {
   as?: T
@@ -9,7 +9,7 @@ interface StarBorderProps<T extends ElementType> {
   children: React.ReactNode
 }
 
-export function StarBorder<T extends ElementType = "button">({
+export function StarBorder<T extends ElementType = "button">({ 
   as,
   className,
   color,
@@ -23,35 +23,33 @@ export function StarBorder<T extends ElementType = "button">({
   return (
     <Component 
       className={cn(
-        "relative inline-block py-[1px] overflow-hidden rounded-[20px]",
+        "relative inline-block py-[1px] overflow-hidden rounded-[20px] cursor-pointer",
         className
       )} 
       {...props}
+      type="button"
     >
       <div
         className={cn(
           "absolute w-[300%] h-[50%] bottom-[-11px] right-[-250%] rounded-full animate-star-movement-bottom z-0",
-          "opacity-20 dark:opacity-70" 
+          "opacity-20 dark:opacity-70",
+          "star-border-gradient"
         )}
-        style={{
-          background: `radial-gradient(circle, ${defaultColor}, transparent 10%)`,
-          animationDuration: speed,
-        }}
+        data-star-color={defaultColor}
+        data-animation-speed={speed}
       />
       <div
         className={cn(
           "absolute w-[300%] h-[50%] top-[-10px] left-[-250%] rounded-full animate-star-movement-top z-0",
-          "opacity-20 dark:opacity-70"
+          "opacity-20 dark:opacity-70",
+          "star-border-gradient"
         )}
-        style={{
-          background: `radial-gradient(circle, ${defaultColor}, transparent 10%)`,
-          animationDuration: speed,
-        }}
+        data-star-color={defaultColor}
+        data-animation-speed={speed}
       />
       <div className={cn(
-        "relative z-1 border text-foreground text-center text-base py-4 px-6 rounded-[20px]",
-        "bg-gradient-to-b from-background/90 to-muted/90 border-border/40",
-        "dark:from-background dark:to-muted dark:border-border"
+        "relative z-1 border text-white text-center text-base py-2.5 px-6 rounded-[20px]",
+        "bg-black/80 backdrop-blur-sm border-white/20 hover:bg-black/90 transition-colors duration-300"
       )}>
         {children}
       </div>

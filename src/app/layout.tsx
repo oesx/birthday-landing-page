@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Noto_Serif_SC } from "next/font/google";
+import { ClerkProvider } from '@clerk/nextjs';
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
-  weight: ["300", "400", "600"],
+  weight: ["400"],
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
   variable: "--font-cormorant",
+  adjustFontFallback: false
 });
 
 const notoSerif = Noto_Serif_SC({
-  weight: ["300", "400", "500", "600"],
+  weight: ["400"],
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
   variable: "--font-noto",
+  adjustFontFallback: false
 });
 
 export const metadata: Metadata = {
@@ -25,11 +32,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh">
-      <body className={`${cormorant.variable} ${notoSerif.variable} font-cormorant antialiased`}>
-        <div className="noise" />
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="zh">
+        <body className={`${cormorant.variable} ${notoSerif.variable} font-cormorant antialiased`}>
+          <div className="noise" />
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

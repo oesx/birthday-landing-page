@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export function Particles() {
   useEffect(() => {
-    const particlesContainer = document.querySelector(".particles");
+    const particlesContainer = document.querySelector(".particles") as HTMLDivElement;
     if (!particlesContainer) return;
 
     const particleCount = 50;
@@ -38,8 +38,8 @@ export function Particles() {
 
     // Add 3D rotation effect on mouse move
     const handleMouseMove = (e: MouseEvent) => {
-      const location = document.querySelector(".location");
-      const mainText = document.querySelector(".main-text");
+      const location = document.querySelector(".location") as HTMLDivElement;
+      const mainText = document.querySelector(".main-text") as HTMLDivElement;
       if (!location || !mainText) return;
 
       const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
