@@ -18,7 +18,7 @@ export function MessageManagement() {
   const fetchMessages = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch('/api/messages');
+      const response = await fetch('/api/admin');
       if (!response.ok) throw new Error('Failed to fetch messages');
       const data = await response.json();
       setMessages(data);
@@ -35,7 +35,7 @@ export function MessageManagement() {
     if (!confirm('确定要删除这条消息吗？')) return;
 
     try {
-      const response = await fetch(`/api/messages/${id}`, {
+      const response = await fetch(`/api/admin/${id}`, {
         method: 'DELETE',
       });
 

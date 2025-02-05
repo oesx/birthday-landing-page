@@ -31,7 +31,7 @@ export function MessageWall() {
   // 获取消息
   const fetchMessages = useCallback(async () => {
     try {
-      const response = await fetch('/api/messages');
+      const response = await fetch('/api/admin');
       if (!response.ok) throw new Error('Failed to fetch messages');
       const data = await response.json();
       setMessages(data);
@@ -59,7 +59,7 @@ export function MessageWall() {
   const onSubmit = async (data: MessageForm) => {
     try {
       setIsSubmitting(true);
-      const response = await fetch("/api/messages", {
+      const response = await fetch("/api/admin", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

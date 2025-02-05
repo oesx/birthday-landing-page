@@ -6,7 +6,7 @@ export default async function MessagesPage() {
   const { userId } = auth();
 
   if (!userId) {
-    redirect("/sign-in?redirect_url=/messages");
+    redirect("/sign-in?redirect_url=/admin");
   }
 
   return <MessageManagement />;
