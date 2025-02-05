@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Noto_Serif_SC } from "next/font/google";
-import { ClerkProvider } from '@clerk/nextjs';
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -32,13 +31,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
-      <html lang="zh">
-        <body className={`${cormorant.variable} ${notoSerif.variable} font-cormorant antialiased`}>
-          <div className="noise" />
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="zh">
+      <body className={`${cormorant.variable} ${notoSerif.variable} font-cormorant antialiased`}>
+        <div className="noise" />
+        {children}
+      </body>
+    </html>
   );
 }
